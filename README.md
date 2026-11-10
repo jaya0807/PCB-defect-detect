@@ -21,13 +21,16 @@ This repository is an **end-to-end industrial inspection & closed-loop remediati
 ### 1. Edge-AI Defect Detection & Classification
 - **Backbone**: Lightweight **YOLOv8 Nano** (`models/best.pt`, 6.2 MB) optimized for low-cost edge platforms (Raspberry Pi 5, NVIDIA Jetson Nano, Intel NUC).
 - **Inference Speed**: ~15–35 ms per board on Edge CPU/GPU.
-- **6 Critical PCB Defect Classes**:
-  1. **Open**: Broken electrical trace / discontinuous connection.
-  2. **Short**: Unwanted copper bridge between traces.
-  3. **Mouse Bite**: Mechanical edge breakouts and scallop gouges.
-  4. **Spur**: Conductor branch projections and sharp copper spurs.
-  5. **Spurious Copper**: Dead residual copper islands causing parasitic capacitance.
-  6. **Missing Hole**: Drill hole missing on via/component pad.
+- **Resolution-Adaptive Visualization**: Dynamically scales bounding boxes, corner accent brackets, center reticles, and anti-aliased labels according to image dimensions, ensuring small defects (such as 50px missing holes on 3000px boards) remain prominently visible.
+- **Out-of-Distribution Burnout & Crater Detection**: Integrated computer-vision heuristic (`_detect_burnout_damage`) detecting catastrophic electrical arc craters, burnt fiberglass, and substrate punctures.
+- **Industrial PCB Defect Classes**:
+  1. **Severe Burnout / Rupture**: Catastrophic thermal arc crater and board substrate rupture.
+  2. **Open**: Broken electrical trace / discontinuous connection.
+  3. **Short**: Unwanted copper bridge between traces.
+  4. **Mouse Bite**: Mechanical edge breakouts and scallop gouges.
+  5. **Spur**: Conductor branch projections and sharp copper spurs.
+  6. **Spurious Copper**: Dead residual copper islands causing parasitic capacitance.
+  7. **Missing Hole**: Drill hole missing on via/component pad.
 
 ### 2. Golden Reference-Image Comparison
 - **Computer Vision Alignment**: Features **ORB (Oriented FAST and Rotated BRIEF)** detection combined with **RANSAC Homography** (`cv2.warpPerspective`) to automatically align imperfectly positioned test boards to a CAD golden master.
@@ -125,6 +128,7 @@ Open **`http://localhost:8501`** in your browser.
 
 | Defect Class | Severity | Industrial Consequence | Automated Remediation |
 | :--- | :--- | :--- | :--- |
+| **Severe Burnout / Rupture** | [CRITICAL] | Substrate carbonization / catastrophic arc crater | Laser substrate excision & power bus redesign |
 | **Open Circuit** | [CRITICAL] | Signal disconnect / power failure | Conductive micro-jet dispenser / Jumper |
 | **Short Circuit** | [CRITICAL] | Power-to-ground short / component burnout | Laser trace ablation / Micro-milling |
 | **Missing Hole** | [HIGH] | Missing through-hole / unrouted layer via | High-speed 0.3mm CNC micro-drill |
