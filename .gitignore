@@ -19,6 +19,7 @@ __pycache__/
 
 # Dataset (don't upload large datasets)
 dataset/
+test_defect_images/
 
 # Generated outputs
 outputs/
