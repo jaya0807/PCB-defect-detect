@@ -55,7 +55,9 @@ class PCBDetector:
             5: "Missing Hole",
         }
 
-    def predict(self, image_input, conf=0.25, iou=0.45):
+    def predict(self, image_input, conf=0.25, conf_threshold=None, iou=0.45, **kwargs):
+        if conf_threshold is not None:
+            conf = conf_threshold
         results = self.model.predict(
             source=image_input,
             conf=conf,
