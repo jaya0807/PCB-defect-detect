@@ -1,419 +1,138 @@
-# 🔍 PCBInspect AI
+# 🔬 Edge-AI PCB Inspection & Automated Defect Localization
 
-<div align="center">
-
-### AI-Powered Industrial PCB Defect Detection System
-
-Detect Printed Circuit Board (PCB) defects in real-time using **YOLOv8**, **Computer Vision**, and an interactive **Streamlit Dashboard**.
-
-![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)
-![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-red?style=for-the-badge)
-![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=for-the-badge&logo=streamlit)
-![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green?style=for-the-badge&logo=opencv)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python)](https://python.org)
+[![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-red?style=for-the-badge)](https://ultralytics.com)
+[![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green?style=for-the-badge&logo=opencv)](https://opencv.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=for-the-badge&logo=streamlit)](https://streamlit.io)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 ---
 
-**Industrial AI Dashboard for Automated PCB Quality Inspection**
+## 📌 Problem Statement Overview
+> **Challenge: Edge-AI PCB Inspection & Automated Defect Localization**  
+> *"Develop a low-cost, edge-AI-powered system to inspect Printed Circuit Boards (PCBs), detect visible manufacturing defects, and localize them using computer vision. Participants can integrate reference-image comparison, defect classification, and board-coordinate mapping and also a solution to correct the design either by a system (for eg. Robotic arm) or Schematics in software."*
 
-</div>
-
----
-
-# 📌 Overview
-
-PCBInspect AI is an AI-powered industrial inspection system designed to automatically detect manufacturing defects on Printed Circuit Boards (PCBs).
-
-The application combines **YOLOv8 object detection**, **OpenCV image processing**, and a **modern Streamlit dashboard** to provide fast, accurate, and interactive PCB inspection.
-
-Instead of manually inspecting circuit boards, users can upload a PCB image (or capture one using a camera), and the system automatically:
-
-- Detects PCB defects
-- Draws bounding boxes
-- Calculates confidence scores
-- Displays inspection statistics
-- Generates analytical charts
-- Exports inspection reports (CSV & PDF)
-
-The dashboard is designed to resemble an industrial quality inspection system used in electronics manufacturing.
+This repository is an **end-to-end industrial inspection & closed-loop remediation platform** built specifically to address all requirements of this challenge.
 
 ---
 
-# ✨ Features
+## 🚀 Key System Capabilities
 
-✅ Industrial Dark-Themed Dashboard
+### 1. 🎯 Edge-AI Defect Detection & Classification
+- **Backbone**: Lightweight **YOLOv8 Nano** (`models/best.pt`, 6.2 MB) optimized for low-cost edge platforms (Raspberry Pi 5, NVIDIA Jetson Nano, Intel NUC).
+- **Inference Speed**: ~15–35 ms per board on Edge CPU/GPU.
+- **6 Critical PCB Defect Classes**:
+  1. **Open**: Broken electrical trace / discontinuous connection.
+  2. **Short**: Unwanted copper bridge between traces.
+  3. **Mouse Bite**: Mechanical edge breakouts and scallop gouges.
+  4. **Spur**: Conductor branch projections and sharp copper spurs.
+  5. **Spurious Copper**: Dead residual copper islands causing parasitic capacitance.
+  6. **Missing Hole**: Drill hole missing on via/component pad.
 
-✅ YOLOv8 Real-Time Object Detection
+### 2. ⚖️ Golden Reference-Image Comparison
+- **Computer Vision Alignment**: Features **ORB (Oriented FAST and Rotated BRIEF)** detection combined with **RANSAC Homography** (`cv2.warpPerspective`) to automatically align imperfectly positioned test boards to a CAD golden master.
+- **Structural Difference Analysis**: Calculates absolute pixel differences (`cv2.absdiff`) and morphological clean-up to catch microscopic manufacturing anomalies.
+- **Discrepancy Heatmap**: Renders pseudo-colored thermal defect intensity maps (`COLORMAP_JET`).
 
-✅ Upload Image or Camera Capture
+### 3. 🗺️ Physical Board-Coordinate Mapping
+- Translates image-space bounding box pixels `(x, y)` to real-world physical millimeter coordinates `(X mm, Y mm)`.
+- **Gerber Standard Origin**: Aligns with industrial EDA coordinate standards (Bottom-Left `(0, 0)` with X right, Y up).
+- **Metric Defect Sizing**: Computes physical width, height, and surface area in $\text{mm}^2$.
 
-✅ Side-by-Side Image Comparison
+### 4. 🤖 Robotic Arm Rework System (System Correction)
+- Maps localized defect types to precision automated rework tooling:
+  - **Trace Shorts & Spurs**: Deploys Tool `T1` (Precision Laser Ablation / Micro-Milling Cutter) to sever bridges.
+  - **Open Circuits**: Deploys Tool `T2` (Conductive Ink / Solder Paste Jet) to bridge broken lines.
+  - **Missing Holes**: Deploys Tool `T3` (High-Speed 0.3mm Micro-Drill) to drill vias.
+  - **Edge / Copper Flaws**: Deploys Tool `T4` (UV-curable buffer & seal pen).
+- **G-Code Generator**: Exports industrial **ISO 6983 / RS-274 G-Code** (`.gcode`) with safe Z-retracts, tool change commands, spindle control, and dwell times.
 
-✅ PCB Health Score
-
-✅ Detection Confidence Analysis
-
-✅ Severity Classification
-
-✅ Detection Summary Table
-
-✅ Interactive Charts
-
-- Bar Chart
-- Pie Chart
-
-✅ Download Detection Image
-
-✅ Export CSV Report
-
-✅ Generate Professional PDF Report
-
-✅ Responsive Streamlit UI
-
----
-
-# 🎯 Defects Detected
-
-The trained model detects the following PCB manufacturing defects:
-
-| Class | Description |
-|--------|-------------|
-| Open | Broken electrical connection |
-| Short | Unwanted electrical connection |
-| Mouse Bite | Missing material on PCB edge |
-| Spur | Small unwanted spurious copper projection |
-|Spurious Copper | Excess spurious copper defect |
-| Missing Hole | Small hole in spurious copper trace |
-
----
-# 📸 Dashboard Preview
-
-## Home Dashboard
-
-
-
-| Dashboard | Detection Results |
-|------------|-------------------|
-| ![Dashboard](assets/dashboard.png) | ![Detection](assets/detection.png) |
-
-| Analytics | PDF Report |
-|-----------|------------|
-| ![Analytics](assets/analytics-dashboard.png) | ![Report](assets/report-downloadS.png) |
+### 5. 📐 Schematic & CAD Software Correction (Software Correction)
+- Translates localized board flaws into an **Engineering Change Order (ECO)** report.
+- Correlates defects with standard **KiCad / Altium Design Rule Check (DRC)** codes:
+  - `DRC_ERR_CLEARANCE_VIOLATION`
+  - `DRC_ERR_DISCONNECTED_NET`
+  - `DRC_ERR_UNROUTED_VIA_DRILL`
+- Exports ready-to-import JSON directives and formal ECO Markdown documentation.
 
 ---
 
-# 🏗️ System Architecture
+## 📁 Repository Structure
 
-```text
-                PCB Image
-                     │
-                     ▼
-             Streamlit Dashboard
-                     │
-                     ▼
-             YOLOv8 Object Detector
-                     │
-                     ▼
-      ┌────────────────────────────┐
-      │ Detect PCB Defects         │
-      │ • Open                     │
-      │ • Short                    │
-      │ • Mouse Bite               │
-      │ • Spur                     │
-      │ • Spurious Copper          │
-      │ • Missing Hole             │
-      └────────────────────────────┘
-                     │
-                     ▼
-         Detection Statistics
-                     │
-        ┌────────────┴────────────┐
-        ▼                         ▼
-  Interactive Charts         PDF & CSV Reports
 ```
-
----
-
-# 📂 Project Structure
-
-```text
-PCB-Defect-Detection-AI/
-│
-├── app.py
-├── detect.py
-├── train.py
-├── test_model.py
-├── requirements.txt
-├── README.md
-├── .gitignore
-├── dataset.yaml
-├── merged_dataset.yaml
-├── yolov8n.pt
-│
+pcb-defect-ai/
+├── app.py                      # Main Streamlit Industrial Dashboard
 ├── models/
-│   └── best.pt
-│
+│   └── best.pt                 # Fine-tuned YOLOv8 PCB Defect Detection Weights
 ├── src/
-│   └── detector.py
-│
-├── notebooks/
-│   └── 01_YOLOv8_PCB_Defect_Detection_Training.ipynb
-│
-├── results/
-│   ├── README.md
-│   ├── results.png
-│   ├── confusion_matrix.png
-│   ├── BoxF1_curve.png
-│   ├── BoxPR_curve.png
-│   ├── BoxP_curve.png
-│   └── BoxR_curve.png
-│
-└── assets/
-    └── Project screenshots
+│   ├── __init__.py
+│   ├── detector.py             # YOLOv8 Edge Inference & BBox Visualizer
+│   ├── comparator.py           # Golden Template Registration & Heatmap Diff
+│   ├── coordinate_mapper.py    # Pixel-to-Millimeter Board Calibration
+│   ├── robotic_arm.py          # Robotic Rework Planner & G-Code Generator
+│   └── schematic_report.py     # EDA Directives & Engineering Change Order (ECO)
+├── sample_data/
+│   ├── generate_samples.py     # Synthetic Golden & Defective PCB Generator
+│   ├── golden_reference.png    # Defect-free Master PCB
+│   └── test_board_defective.png# Test PCB with injected physical defects
+├── requirements.txt            # Python Dependencies
+├── .gitignore
+└── README.md                   # System Documentation
 ```
 
 ---
 
-# ⚙️ Installation
+## 🛠️ Installation & Setup
 
-## Clone the repository
+### Prerequisites
+- Python 3.10+
+- Git
 
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/keerthy-gs/PCB-Defect-Detection-AI.git
-
-cd PCB-Defect-Detection-AI
+git clone https://github.com/jaya0807/PCB-defect-detect.git
+cd PCB-defect-detect
 ```
 
----
-
-## Create Virtual Environment
-
-### Windows
-
-```bash
-python -m venv .venv
-
-.venv\Scripts\activate
-```
-
-### Linux / macOS
-
-```bash
-python3 -m venv .venv
-
-source .venv/bin/activate
-```
-
----
-
-## Install Dependencies
-
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## Run the Application
-
+### 3. Launch the Application
 ```bash
 streamlit run app.py
 ```
-
-The dashboard will open automatically in your default browser.
-
----
-
-# 🛠️ Tech Stack
-
-| Category | Technology |
-|----------|------------|
-| Language | Python |
-| Deep Learning | YOLOv8 |
-| Framework | Streamlit |
-| Computer Vision | OpenCV |
-| Charts | Matplotlib |
-| Data Analysis | Pandas |
-| PDF Reports | ReportLab |
-| QR Code | qrcode |
-| Model Training | Ultralytics |
-# 📊 Model Performance
-
-The PCB defect detection model is trained using a custom merged dataset of publicly available PCB inspection images.
-
-The model is capable of detecting six different PCB defect categories in real time while maintaining fast inference speed.
-
-## Dataset
-
-The model was trained using a merged PCB defect dataset prepared from:
-
-- DeepPCB
-- TDD-PCB
-- HRIPCB
-- DsPCBSD+
-
-The datasets were combined into one YOLO-format dataset with six defect classes:
-
-- Open
-- Short
-- Mouse Bite
-- Spur
-- Spurious Copper
-- Missing Hole
-
-The training script expects the prepared merged dataset inside:
-
-```text
-dataset/merged/
-├── images/
-│   ├── train/
-│   ├── val/
-│   └── test/
-└── labels/
-    ├── train/
-    ├── val/
-    └── test/
-
-### Supported Defect Classes
-
-| Class | Status |
-|--------|--------|
-| Open | ✅ |
-| Short | ✅ |
-| Mouse Bite | ✅ |
-| Spur | ✅ |
-| Spurious Copper | ✅ |
-| Missing Hole | ✅ | 
-
-### Training Configuration
-
-| Setting | Value |
-|---|---|
-| Model | YOLOv8n |
-| Training images | 6,372 |
-| Validation images | 1,511 |
-| Image size | 640 × 640 |
-| Batch size | 16 |
-| Training method | Staged checkpoint fine-tuning |
-| Total completed epochs | 53 |
-
-[View the complete YOLOv8 training notebook](notebooks/01_YOLOv8_PCB_Defect_Detection_Training.ipynb)
-
-### Final Validation Results
-
-| Metric | Result |
-|---|---:|
-| Precision | 92.4% |
-| Recall | 86.4% |
-| mAP@50 | 92.3% |
-| mAP@50–95 | 57.0% |
-| Inference time | 2.3 ms per image |
-
-### Training Result Graphs
-
-#### Training Progress
-
-![YOLOv8 Training Results](results/results.png)
-
-#### Confusion Matrix
-
-![PCB Defect Confusion Matrix](results/confusion_matrix.png)
+Open **`http://localhost:8501`** in your browser.
 
 ---
 
-# 🔄 Detection Pipeline
-
-```text
-Input PCB Image
-        │
-        ▼
-Image Preprocessing
-        │
-        ▼
-YOLOv8 Object Detection
-        │
-        ▼
-Bounding Box Generation
-        │
-        ▼
-Confidence Score Calculation
-        │
-        ▼
-Dashboard Analytics
-        │
-        ├────────► Detection Table
-        ├────────► Health Score
-        ├────────► Charts
-        ├────────► CSV Report
-        └────────► PDF Report
-```
+## 🧪 Quick Test (1-Click Demonstration)
+1. Launch the Streamlit application.
+2. In the main input selector, choose **`Use Sample PCB Dataset (1-Click Test)`**.
+3. Click **`🚀 Start Inspection & Localization`**.
+4. Explore the 6 interactive tabs:
+   - **Tab 1:** View localized defect bounding boxes, confidence, and metrics.
+   - **Tab 2:** Inspect the Golden Reference alignment and anomaly heatmap.
+   - **Tab 3:** Review the 2D physical millimeter board layout.
+   - **Tab 4:** Review the Robotic toolpath sequence and download the `.gcode` file.
+   - **Tab 5:** Review the Engineering Change Order (ECO) and download KiCad DRC JSON.
+   - **Tab 6:** Download the comprehensive PDF inspection report and CSV data.
 
 ---
 
-# 🚀 Future Improvements
+## 📊 Defect Classification Table
 
-- 🎥 Live webcam inspection
-- 📹 Real-time production line monitoring
-- 🤖 PCB defect severity prediction
-- 📈 Manufacturing analytics dashboard
-- ☁️ Cloud deployment
-- 📱 Mobile-friendly dashboard
-- 🔍 Multi-PCB batch inspection
-- 🧠 Defect trend analysis using AI
-
----
-
-# 🤝 Contributing
-
-Contributions are always welcome!
-
-If you'd like to improve this project:
-
-1. Fork the repository
-2. Create a new feature branch
-3. Commit your changes
-4. Push to your branch
-5. Open a Pull Request
+| Defect Class | Severity | Industrial Consequence | Automated Remediation |
+| :--- | :--- | :--- | :--- |
+| **Open Circuit** | 🔴 Critical | Signal disconnect / power failure | Conductive micro-jet dispenser / Jumper |
+| **Short Circuit** | 🔴 Critical | Power-to-ground short / component burnout | Laser trace ablation / Micro-milling |
+| **Missing Hole** | 🟠 High | Missing through-hole / unrouted layer via | High-speed 0.3mm CNC micro-drill |
+| **Spur** | 🟡 Medium | High-frequency RF noise / potential short | Laser trimming & 45° miter layout directive |
+| **Mouse Bite** | 🟡 Medium | Weakened mechanical edge during panelization | Edge routing keep-out increase (0.5mm) |
+| **Spurious Copper** | 🔵 Low | Parasitic capacitance / stray RF antenna | Zone island removal & UV buffer |
 
 ---
 
-# 👨‍💻 Author
-
-**Keerthy GS**
-
-Electronics and Communication Engineering (ECE)
-
-Passionate about Artificial Intelligence, Computer Vision, Embedded Systems, and Software Development.
-
-### Connect with me
-
-- GitHub: https://github.com/keerthy-gs
-- LinkedIn: https://www.linkedin.com/in/keerthy-g-s-8179a7344
-
----
-
-# ⭐ Support
-
-If you found this project useful,
-
-please consider giving it a ⭐ on GitHub.
-
-It helps others discover the project and motivates future improvements.
-
----
-
-# 📄 License
-
-This project is licensed under the **MIT License**.
-
-Feel free to use, modify, and distribute this project for educational and research purposes.
-
----
-
-<div align="center">
-
-### ⭐ Thank you for visiting this repository! ⭐
-
-Built with ❤️ using Python, YOLOv8, OpenCV and Streamlit.
-
-</div>
+## 📜 License
+MIT License. Created for Edge-AI Hardware & Vision Inspection Challenges.
