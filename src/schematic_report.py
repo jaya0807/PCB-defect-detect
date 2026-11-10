@@ -11,6 +11,13 @@ import json
 
 class SchematicCorrectionEngine:
     CAD_RECOMMENDATIONS = {
+        "Severe Burnout / Rupture": {
+            "drc_code": "DRC_CRITICAL_ELECTRICAL_BURNOUT",
+            "schematic_action": "Power Bus & Overcurrent Protection Redesign",
+            "layout_directive": "Catastrophic thermal arc crater detected. Widen power delivery traces, insert crowbar/TVS protection, and reinforce FR-4 substrate isolation with thermal relief vias.",
+            "kicad_layer": "All Layers (Substrate Puncture)",
+            "risk": "Catastrophic power runaway, substrate carbonization short, and board destruction."
+        },
         "Short": {
             "drc_code": "DRC_ERR_CLEARANCE_VIOLATION",
             "schematic_action": "Verify Net Separation & Increase Clearance",
@@ -66,7 +73,7 @@ class SchematicCorrectionEngine:
         """
         now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         lines = [
-            f"# 📋 ENGINEERING CHANGE ORDER (ECO) REPORT",
+            f"# ENGINEERING CHANGE ORDER (ECO) REPORT",
             f"**Project / Board:** `{board_name}`  ",
             f"**Generated Date:** {now_str}  ",
             f"**Author / Inspector:** {designer} (Automated Edge-AI Inspection)  ",

@@ -242,6 +242,7 @@ def plot_physical_board(board_w_mm, board_h_mm, mapped_dets, origin_pos="Bottom-
     ax.text(2, 2, "ORIGIN (0,0)", color="#38bdf8", fontsize=8, fontweight="bold")
 
     col_map = {
+        "Severe Burnout / Rupture": "#dc2626",
         "Open": "#ef4444", "Short": "#dc2626", "Missing Hole": "#f97316",
         "Spur": "#eab308", "Mouse Bite": "#a855f7", "Spurious Copper": "#06b6d4"
     }
@@ -265,7 +266,7 @@ def create_charts(counts):
     ax_bar.set_facecolor("#1e293b")
     labels = list(counts.keys())
     values = list(counts.values())
-    palette = ["#ef4444", "#dc2626", "#f97316", "#eab308", "#a855f7", "#06b6d4"]
+    palette = ["#dc2626", "#ef4444", "#f97316", "#eab308", "#a855f7", "#06b6d4", "#f43f5e", "#10b981", "#64748b"]
 
     bars = ax_bar.bar(labels, values, color=palette[:len(labels)], edgecolor="white", alpha=0.9)
     ax_bar.set_title("Defects by Category", color="white", fontsize=10, fontweight="bold")
@@ -388,10 +389,11 @@ with st.sidebar:
 
     st.markdown("---")
     st.markdown("""
-    **Inspects 6 Flaw Types:**
+    **Inspects Industrial Flaw Types:**
+    - `[CRITICAL]` **Severe Burnout / Rupture:** Thermal crater / puncture
     - `[CRITICAL]` **Open:** Broken trace
     - `[CRITICAL]` **Short:** Trace bridge
-    - `[HIGH]` **Missing Hole:** Un-drilled via
+    - `[HIGH]` **Missing Hole:** Un-drilled via / pad
     - `[MEDIUM]` **Spur:** Trace protrusion
     - `[MEDIUM]` **Mouse Bite:** Edge gouge
     - `[LOW]` **Spurious Copper:** Dead island

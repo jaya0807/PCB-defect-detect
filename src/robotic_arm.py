@@ -11,6 +11,15 @@ from typing import List, Dict, Any
 
 class RoboticReworkPlanner:
     TOOL_DEFINITIONS = {
+        "Severe Burnout / Rupture": {
+            "tool_id": "T1",
+            "tool_name": "Laser Ablation & De-soldering Tool",
+            "action": "Excise charred substrate carbonization & isolate shorted power planes",
+            "spindle_speed": 5000,
+            "feed_rate": 60,
+            "dwell_ms": 600,
+            "color": "#dc2626",
+        },
         "Short": {
             "tool_id": "T1",
             "tool_name": "Laser Trimmer / Micro-Mill",
