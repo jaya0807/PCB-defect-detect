@@ -1,4 +1,4 @@
-# 🤖 TraceBot: Edge-AI PCB Inspection & Automated Defect Remediation
+# TraceBot: Edge-AI PCB Inspection & Automated Defect Remediation
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python)](https://python.org)
 [![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-red?style=for-the-badge)](https://ultralytics.com)
@@ -8,7 +8,7 @@
 
 ---
 
-## 📌 Problem Statement Overview
+## Problem Statement Overview
 > **Challenge: Edge-AI PCB Inspection & Automated Defect Localization**  
 > *"Develop a low-cost, edge-AI-powered system to inspect Printed Circuit Boards (PCBs), detect visible manufacturing defects, and localize them using computer vision. Participants can integrate reference-image comparison, defect classification, and board-coordinate mapping and also a solution to correct the design either by a system (for eg. Robotic arm) or Schematics in software."*
 
@@ -16,9 +16,9 @@ This repository is an **end-to-end industrial inspection & closed-loop remediati
 
 ---
 
-## 🚀 Key System Capabilities
+## Key System Capabilities
 
-### 1. 🎯 Edge-AI Defect Detection & Classification
+### 1. Edge-AI Defect Detection & Classification
 - **Backbone**: Lightweight **YOLOv8 Nano** (`models/best.pt`, 6.2 MB) optimized for low-cost edge platforms (Raspberry Pi 5, NVIDIA Jetson Nano, Intel NUC).
 - **Inference Speed**: ~15–35 ms per board on Edge CPU/GPU.
 - **6 Critical PCB Defect Classes**:
@@ -29,17 +29,17 @@ This repository is an **end-to-end industrial inspection & closed-loop remediati
   5. **Spurious Copper**: Dead residual copper islands causing parasitic capacitance.
   6. **Missing Hole**: Drill hole missing on via/component pad.
 
-### 2. ⚖️ Golden Reference-Image Comparison
+### 2. Golden Reference-Image Comparison
 - **Computer Vision Alignment**: Features **ORB (Oriented FAST and Rotated BRIEF)** detection combined with **RANSAC Homography** (`cv2.warpPerspective`) to automatically align imperfectly positioned test boards to a CAD golden master.
 - **Structural Difference Analysis**: Calculates absolute pixel differences (`cv2.absdiff`) and morphological clean-up to catch microscopic manufacturing anomalies.
 - **Discrepancy Heatmap**: Renders pseudo-colored thermal defect intensity maps (`COLORMAP_JET`).
 
-### 3. 🗺️ Physical Board-Coordinate Mapping
+### 3. Physical Board-Coordinate Mapping
 - Translates image-space bounding box pixels `(x, y)` to real-world physical millimeter coordinates `(X mm, Y mm)`.
 - **Gerber Standard Origin**: Aligns with industrial EDA coordinate standards (Bottom-Left `(0, 0)` with X right, Y up).
 - **Metric Defect Sizing**: Computes physical width, height, and surface area in $\text{mm}^2$.
 
-### 4. 🤖 Robotic Arm Rework System (System Correction)
+### 4. Robotic Arm Rework System (System Correction)
 - Maps localized defect types to precision automated rework tooling:
   - **Trace Shorts & Spurs**: Deploys Tool `T1` (Precision Laser Ablation / Micro-Milling Cutter) to sever bridges.
   - **Open Circuits**: Deploys Tool `T2` (Conductive Ink / Solder Paste Jet) to bridge broken lines.
@@ -47,7 +47,7 @@ This repository is an **end-to-end industrial inspection & closed-loop remediati
   - **Edge / Copper Flaws**: Deploys Tool `T4` (UV-curable buffer & seal pen).
 - **G-Code Generator**: Exports industrial **ISO 6983 / RS-274 G-Code** (`.gcode`) with safe Z-retracts, tool change commands, spindle control, and dwell times.
 
-### 5. 📐 Schematic & CAD Software Correction (Software Correction)
+### 5. Schematic & CAD Software Correction (Software Correction)
 - Translates localized board flaws into an **Engineering Change Order (ECO)** report.
 - Correlates defects with standard **KiCad / Altium Design Rule Check (DRC)** codes:
   - `DRC_ERR_CLEARANCE_VIOLATION`
@@ -57,11 +57,11 @@ This repository is an **end-to-end industrial inspection & closed-loop remediati
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 pcb-defect-ai/
-├── app.py                      # Main Streamlit Industrial Dashboard
+├── app.py                      # Main Streamlit Industrial Dashboard (TraceBot)
 ├── models/
 │   └── best.pt                 # Fine-tuned YOLOv8 PCB Defect Detection Weights
 ├── src/
@@ -82,7 +82,7 @@ pcb-defect-ai/
 
 ---
 
-## 🛠️ Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 - Python 3.10+
@@ -107,32 +107,32 @@ Open **`http://localhost:8501`** in your browser.
 
 ---
 
-## 🧪 Quick Test (1-Click Demonstration)
+## Quick Test Workflow
 1. Launch the Streamlit application.
-2. In the main input selector, choose **`Use Sample PCB Dataset (1-Click Test)`**.
-3. Click **`🚀 Start Inspection & Localization`**.
-4. Explore the 6 interactive tabs:
+2. Under **Step 1**, upload a PCB image from your desktop (or click the sample test helper).
+3. Click **Run Inspection & Automated Localization**.
+4. Explore the 6 inspection tabs:
    - **Tab 1:** View localized defect bounding boxes, confidence, and metrics.
-   - **Tab 2:** Inspect the Golden Reference alignment and anomaly heatmap.
-   - **Tab 3:** Review the 2D physical millimeter board layout.
-   - **Tab 4:** Review the Robotic toolpath sequence and download the `.gcode` file.
-   - **Tab 5:** Review the Engineering Change Order (ECO) and download KiCad DRC JSON.
+   - **Tab 2:** Review the physical millimeter coordinate table and 2D board layout.
+   - **Tab 3:** Review the Robotic toolpath sequence and download the `.gcode` file.
+   - **Tab 4:** Review the Engineering Change Order (ECO) and download KiCad DRC JSON.
+   - **Tab 5:** Inspect the Golden Reference alignment and anomaly heatmap.
    - **Tab 6:** Download the comprehensive PDF inspection report and CSV data.
 
 ---
 
-## 📊 Defect Classification Table
+## Defect Classification Table
 
 | Defect Class | Severity | Industrial Consequence | Automated Remediation |
 | :--- | :--- | :--- | :--- |
-| **Open Circuit** | 🔴 Critical | Signal disconnect / power failure | Conductive micro-jet dispenser / Jumper |
-| **Short Circuit** | 🔴 Critical | Power-to-ground short / component burnout | Laser trace ablation / Micro-milling |
-| **Missing Hole** | 🟠 High | Missing through-hole / unrouted layer via | High-speed 0.3mm CNC micro-drill |
-| **Spur** | 🟡 Medium | High-frequency RF noise / potential short | Laser trimming & 45° miter layout directive |
-| **Mouse Bite** | 🟡 Medium | Weakened mechanical edge during panelization | Edge routing keep-out increase (0.5mm) |
-| **Spurious Copper** | 🔵 Low | Parasitic capacitance / stray RF antenna | Zone island removal & UV buffer |
+| **Open Circuit** | [CRITICAL] | Signal disconnect / power failure | Conductive micro-jet dispenser / Jumper |
+| **Short Circuit** | [CRITICAL] | Power-to-ground short / component burnout | Laser trace ablation / Micro-milling |
+| **Missing Hole** | [HIGH] | Missing through-hole / unrouted layer via | High-speed 0.3mm CNC micro-drill |
+| **Spur** | [MEDIUM] | High-frequency RF noise / potential short | Laser trimming & 45° miter layout directive |
+| **Mouse Bite** | [MEDIUM] | Weakened mechanical edge during panelization | Edge routing keep-out increase (0.5mm) |
+| **Spurious Copper** | [LOW] | Parasitic capacitance / stray RF antenna | Zone island removal & UV buffer |
 
 ---
 
-## 📜 License
+## License
 MIT License. Created for Edge-AI Hardware & Vision Inspection Challenges.

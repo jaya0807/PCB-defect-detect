@@ -48,19 +48,50 @@ except ImportError:
 
 APP_NAME = "TraceBot"
 MODEL_NAME = "YOLOv8 Edge"
-DEVELOPER_NAME = "TraceBot Team"
+DEVELOPER_NAME = "TraceBot Engineering"
 GITHUB_URL = "https://github.com/jaya0807/PCB-defect-detect"
+
+
+# -----------------------------------------------------------------------------
+# Lucide SVG Icon Library
+# -----------------------------------------------------------------------------
+LUCIDE_ICONS = {
+    "cpu": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>',
+    "bot": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>',
+    "crosshair": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" x2="18" y1="12" y2="12"/><line x1="6" x2="2" y1="12" y2="12"/><line x1="12" x2="12" y1="6" y2="2"/><line x1="12" x2="12" y1="22" y2="18"/></svg>',
+    "scan": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>',
+    "alert-triangle": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>',
+    "check-circle": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    "wrench": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+    "file-code": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>',
+    "scale": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>',
+    "download": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>',
+    "sliders": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="1" x2="7" y1="14" y2="14"/><line x1="9" x2="15" y1="8" y2="8"/><line x1="17" x2="23" y1="16" y2="16"/></svg>',
+    "camera": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>',
+    "upload": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>',
+    "shield": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    "zap": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    "maximize": '<svg xmlns="http://www.w3.org/2000/svg" width="{s}" height="{s}" viewBox="0 0 24 24" fill="none" stroke="{c}" stroke-width="{w}" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>',
+}
+
+
+def lucide(name: str, size: int = 18, color: str = "currentColor", stroke_width: float = 2) -> str:
+    """Returns an inline Lucide SVG icon string."""
+    template = LUCIDE_ICONS.get(name)
+    if not template:
+        return ""
+    return template.format(s=size, c=color, w=stroke_width)
+
 
 st.set_page_config(
     page_title=f"{APP_NAME} | Edge-AI PCB Inspection & Automated Remediation",
-    page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
 
 # -----------------------------------------------------------------------------
-# Styling
+# Clean Industrial CSS
 # -----------------------------------------------------------------------------
 st.markdown(
     """
@@ -104,31 +135,39 @@ st.markdown(
         .app-header {
             padding: 1.25rem 1.5rem;
             margin-bottom: 1.2rem;
-            border-radius: 18px;
+            border-radius: 16px;
             color: white;
             background:
                 radial-gradient(circle at 88% 10%, rgba(191,219,254,.35), transparent 22%),
                 linear-gradient(115deg, #0b397d, #1d4ed8 55%, #2563eb);
             box-shadow: 0 16px 34px rgba(29,78,216,.24);
         }
-        .header-title { margin: 0; font-size: 1.9rem; font-weight: 850; }
-        .header-subtitle { margin-top: .3rem; color: #dbeafe; font-size: .92rem; }
+        .header-title {
+            margin: 0;
+            font-size: 1.9rem;
+            font-weight: 850;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-subtitle { margin-top: .35rem; color: #dbeafe; font-size: .92rem; }
         .step-pill {
-            display: inline-block;
-            padding: .28rem .65rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: .28rem .7rem;
             border-radius: 999px;
             font-size: .75rem;
-            font-weight: 700;
-            background: rgba(255,255,255,.18);
+            font-weight: 650;
+            background: rgba(255,255,255,.16);
             border: 1px solid rgba(255,255,255,.24);
             margin-right: .4rem;
         }
-        .workflow-box {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 1rem 1.2rem;
-            margin-bottom: 1.2rem;
+        .inline-icon {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            margin-right: 6px;
         }
     </style>
     """,
@@ -240,7 +279,7 @@ def create_charts(counts):
     fig_pie, ax_pie = plt.subplots(figsize=(4.5, 2.8), facecolor="#0f172a")
     ax_pie.pie(
         values, labels=labels, autopct="%1.0f%%", startangle=90,
-        colors=palette[:len(counts)],
+        colors=palette[:len(labels)],
         textprops={"color": "white", "fontsize": 8},
         wedgeprops={"edgecolor": "#0f172a", "linewidth": 1.2}
     )
@@ -279,7 +318,6 @@ def build_pdf_report(result):
     story.append(t)
     story.append(Spacer(1, 14))
 
-    # Defect Table
     if not result["table"].empty:
         df = result["table"]
         headers = ["#", "Class", "Severity", "Confidence", "Board X (mm)", "Board Y (mm)"]
@@ -301,20 +339,23 @@ def build_pdf_report(result):
 
 
 # -----------------------------------------------------------------------------
-# Main Header
+# Main Header (with Lucide SVG)
 # -----------------------------------------------------------------------------
 st.markdown(
     f"""
     <div class="app-header">
-        <h1 class="header-title">🤖 {APP_NAME}</h1>
+        <h1 class="header-title">
+            {lucide('cpu', 30, '#93c5fd', 2.2)}
+            <span>{APP_NAME}</span>
+        </h1>
         <div class="header-subtitle">
-            Edge-AI Automated Visual Inspection: Upload a PCB to detect defects, locate them in physical millimeters, and get instant automated remediation.
+            Edge-AI Automated Visual Inspection: Upload a PCB to detect manufacturing defects, locate them in physical millimeters, and get automated physical and software remediation.
         </div>
-        <div style="margin-top: .7rem;">
-            <span class="step-pill">1. Upload PCB</span>
-            <span class="step-pill">2. AI Identifies Flaw</span>
-            <span class="step-pill">3. Pinpoint Location (X, Y mm)</span>
-            <span class="step-pill">4. Robotic Arm & CAD Fix</span>
+        <div style="margin-top: .75rem;">
+            <span class="step-pill">{lucide('upload', 14, '#93c5fd')} Upload PCB</span>
+            <span class="step-pill">{lucide('scan', 14, '#93c5fd')} AI Identification</span>
+            <span class="step-pill">{lucide('crosshair', 14, '#93c5fd')} Millimeter Localization</span>
+            <span class="step-pill">{lucide('bot', 14, '#93c5fd')} Robotic Arm & CAD Fix</span>
         </div>
     </div>
     """,
@@ -323,29 +364,37 @@ st.markdown(
 
 
 # -----------------------------------------------------------------------------
-# Sidebar Configuration
+# Sidebar Configuration (Clean, No Emojis)
 # -----------------------------------------------------------------------------
 with st.sidebar:
-    st.header("⚙️ Board Settings")
+    st.markdown(
+        f"""
+        <div style="display:flex; align-items:center; gap:8px; font-size:1.15rem; font-weight:700; margin-bottom:1rem;">
+            {lucide('sliders', 20, '#60a5fa')}
+            <span>Board Settings</span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-    st.subheader("📏 Physical Calibration")
+    st.subheader("Physical Calibration")
     board_w = st.number_input("Board Width (mm)", min_value=10.0, max_value=500.0, value=100.0, step=5.0)
     board_h = st.number_input("Board Height (mm)", min_value=10.0, max_value=500.0, value=80.0, step=5.0)
     origin_pos = st.selectbox("EDA / Gerber Origin", ["Bottom-Left", "Top-Left"], index=0, help="Gerber standard is Bottom-Left (0,0)")
 
-    st.subheader("🎯 Detection Sensitivity")
+    st.subheader("Detection Sensitivity")
     conf_thresh = st.slider("Confidence Threshold", 0.05, 0.95, 0.20, 0.05)
     iou_thresh = st.slider("NMS IoU Threshold", 0.1, 0.8, 0.45, 0.05)
 
     st.markdown("---")
     st.markdown("""
     **Inspects 6 Flaw Types:**
-    - 🔴 **Open:** Broken trace
-    - 🔴 **Short:** Trace bridge
-    - 🟠 **Missing Hole:** Un-drilled via
-    - 🟡 **Spur:** Trace protrusion
-    - 🟣 **Mouse Bite:** Edge gouge
-    - 🔵 **Spurious Copper:** Dead island
+    - `[CRITICAL]` **Open:** Broken trace
+    - `[CRITICAL]` **Short:** Trace bridge
+    - `[HIGH]` **Missing Hole:** Un-drilled via
+    - `[MEDIUM]` **Spur:** Trace protrusion
+    - `[MEDIUM]` **Mouse Bite:** Edge gouge
+    - `[LOW]` **Spurious Copper:** Dead island
     """)
 
 
@@ -359,7 +408,7 @@ if "golden_image" not in st.session_state:
 if "inspection_result" not in st.session_state:
     st.session_state.inspection_result = None
 
-st.subheader("📤 Step 1: Provide Your Inspected Circuit Board")
+st.subheader("Step 1: Provide Your Inspected Circuit Board")
 
 upload_col, cam_col = st.columns([3, 1])
 with upload_col:
@@ -373,15 +422,14 @@ with upload_col:
         st.session_state.source_name = uploaded_file.name
 
 with cam_col:
-    use_cam = st.toggle("📷 Use Live Camera", value=False)
+    use_cam = st.toggle("Use Live Camera", value=False)
     if use_cam:
-        cam_shot = st.camera_input("Snap picture from camera")
+        cam_shot = st.camera_input("Capture picture from camera")
         if cam_shot:
             st.session_state.test_image = Image.open(cam_shot).convert("RGB")
             st.session_state.source_name = "Camera Capture"
 
-# Quick Sample Test Helper (Discreet, not confusing)
-with st.expander("💡 Don't have a PCB image right now? Click to load a test sample"):
+with st.expander("Test Sample: Load reference and defective test board"):
     if st.button("Load Test PCB & Golden Master"):
         ref_s, test_s = get_sample_images()
         st.session_state.golden_image = ref_s
@@ -389,17 +437,15 @@ with st.expander("💡 Don't have a PCB image right now? Click to load a test sa
         st.session_state.source_name = "Sample Defective Test Board"
         st.success("Loaded test PCB with sample open, short, spur, and missing hole defects.")
 
-# Optional Golden Reference (CAD) Upload
-with st.expander("⚖️ Optional: Have a CAD Golden Reference Template? (Click to compare)"):
+with st.expander("Optional: Compare against CAD Golden Template"):
     st.caption("If you have a CAD render or master defect-free PCB image, upload it here to enable template subtraction and thermal discrepancy heatmaps.")
     cad_file = st.file_uploader("Upload Golden Master Template", type=["jpg", "jpeg", "png"], key="cad_uploader")
     if cad_file:
         st.session_state.golden_image = Image.open(cad_file).convert("RGB")
         st.success("Golden Master loaded for comparison!")
 
-# Inspect Button
 start_inspect = st.button(
-    "🚀 Run Inspection & Automated Localization",
+    "Run Inspection & Automated Localization",
     type="primary",
     use_container_width=True,
     disabled=st.session_state.test_image is None
@@ -423,27 +469,26 @@ if start_inspect and st.session_state.test_image is not None:
     if os.path.exists(tmp_path):
         os.remove(tmp_path)
 
-    # 1. Map to physical mm coordinates
+    # Physical coordinate mapping
     mapper = BoardCoordinateMapper(board_w, board_h, origin_pos)
     mapped_detections = mapper.map_detections(detections, test_img_np.shape)
 
-    # 2. Golden Reference Comparison (if available)
+    # Golden Reference Comparison (if available)
     comparator_res = None
     if st.session_state.golden_image is not None:
         comparator = load_comparator()
         comparator_res = comparator.align_and_compare(np.array(st.session_state.golden_image), test_img_np)
 
-    # 3. Robotic Arm Rework Plan & G-Code
+    # Robotic Arm Rework Plan & G-Code
     planner = load_rework_planner()
     rework_plan = planner.generate_rework_plan(mapped_detections)
     gcode = planner.generate_gcode(rework_plan, operator_name=DEVELOPER_NAME)
 
-    # 4. Schematic ECO Directives & KiCad DRC
+    # Schematic ECO Directives & KiCad DRC
     schematic_engine = load_schematic_engine()
     eco_markdown = schematic_engine.generate_eco_report(mapped_detections)
     kicad_json = schematic_engine.export_kicad_drc_json(mapped_detections)
 
-    # Data Table
     rows = []
     for d in mapped_detections:
         c = d["board_coord_mm"]
@@ -488,49 +533,57 @@ if start_inspect and st.session_state.test_image is not None:
 
 
 # -----------------------------------------------------------------------------
-# Results: The 3 Core Answers
+# Results: Clean Industrial Tabs
 # -----------------------------------------------------------------------------
 res = st.session_state.inspection_result
 
 if res is not None:
     st.markdown("---")
-    st.subheader("📋 Step 2: Inspection & Remediation Results")
+    st.subheader("Step 2: Inspection & Remediation Results")
 
-    # Top KPI Banner
+    # KPI Banner (No Emojis)
     k1, k2, k3, k4, k5 = st.columns(5)
-    k1.metric("🔍 Defects Detected", res["total_defects"])
-    k2.metric("⚠️ Critical Flaws", res["critical_count"])
-    k3.metric("⚡ Inspection Speed", f"{res['elapsed'] * 1000:.1f} ms")
-    k4.metric("🛡️ PCB Health Score", f"{res['health_score']}/100", res["status"])
-    k5.metric("📏 Origin Reference", origin_pos)
+    k1.metric("Defects Detected", res["total_defects"])
+    k2.metric("Critical Flaws", res["critical_count"])
+    k3.metric("Inspection Latency", f"{res['elapsed'] * 1000:.1f} ms")
+    k4.metric("PCB Health Score", f"{res['health_score']}/100", res["status"])
+    k5.metric("Origin Reference", origin_pos)
 
     st.progress(res["health_score"] / 100, text=f"Quality Assessment: {res['status']}")
 
-    # The Core 3 Questions as Main Tabs
+    # Clean Tabs
     tab_error, tab_location, tab_rework, tab_eco, tab_golden, tab_export = st.tabs([
-        "🚨 1. What is the Error?",
-        "📍 2. Where is it? (Exact mm)",
-        "🤖 3A. Physical Fix (Robotic Arm G-Code)",
-        "📐 3B. Software Fix (Schematics ECO)",
-        "⚖️ CAD Template Comparison",
-        "📄 Export Reports (PDF & CSV)",
+        "1. Defect Classification",
+        "2. Physical Coordinates (mm)",
+        "3. Robotic Arm Rework (G-Code)",
+        "4. Schematics & CAD Directives (ECO)",
+        "5. CAD Reference Comparison",
+        "6. Export Reports",
     ])
 
     # -------------------------------------------------------------------------
-    # TAB 1: What is the Error?
+    # TAB 1: Defect Classification
     # -------------------------------------------------------------------------
     with tab_error:
-        st.markdown("#### 🎯 Visual Defect Localization & Classification")
+        st.markdown(
+            f"""
+            <div style="display:flex; align-items:center; gap:8px; font-size:1.1rem; font-weight:700; margin-bottom:.5rem;">
+                {lucide('scan', 20, '#60a5fa')}
+                <span>Visual Defect Localization & Classification</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         img_left, img_right = st.columns(2)
         with img_left:
-            st.markdown("**📷 Inspected Board (Raw Input)**")
+            st.markdown("**Inspected Board (Raw Input)**")
             st.image(res["original_bytes"], use_container_width=True)
         with img_right:
-            st.markdown("**🎯 AI Detection (YOLOv8 Bounding Boxes & Crosshairs)**")
+            st.markdown("**AI Detection (YOLOv8 Bounding Boxes & Crosshairs)**")
             st.image(res["detection_bytes"], use_container_width=True)
 
         if not res["table"].empty:
-            st.markdown("#### 📋 Defect Breakdown")
+            st.markdown("#### Defect Breakdown")
             st.dataframe(res["table"][["#", "Class", "Severity", "Confidence", "Area (mm²)"]], use_container_width=True, hide_index=True)
 
             st.markdown("---")
@@ -544,20 +597,25 @@ if res is not None:
                 st.pyplot(pchart, use_container_width=True)
                 plt.close(pchart)
         else:
-            st.success("🎉 Board passed! No manufacturing defects found.")
+            st.success("Board passed inspection. Zero manufacturing defects found.")
 
     # -------------------------------------------------------------------------
-    # TAB 2: Where is it? (Exact mm coordinates)
+    # TAB 2: Physical Coordinates (mm)
     # -------------------------------------------------------------------------
     with tab_location:
-        st.markdown(f"#### 📍 Millimeter Coordinate Localization (Board Size: {board_w}mm × {board_h}mm)")
-        st.caption(f"Coordinates mapped relative to Gerber origin **{origin_pos} (0, 0)** with millimeter precision.")
+        st.markdown(
+            f"""
+            <div style="display:flex; align-items:center; gap:8px; font-size:1.1rem; font-weight:700; margin-bottom:.5rem;">
+                {lucide('crosshair', 20, '#60a5fa')}
+                <span>Millimeter Coordinate Localization (Board Size: {board_w}mm × {board_h}mm)</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        st.caption(f"Coordinates mapped relative to Gerber origin {origin_pos} (0, 0) with millimeter precision.")
 
         if res["mapped_detections"]:
-            # Coordinate table
             st.dataframe(res["table"][["#", "Class", "Board X (mm)", "Board Y (mm)", "Width (mm)", "Height (mm)", "Area (mm²)"]], use_container_width=True, hide_index=True)
-
-            # 2D Interactive Board Plot
             board_fig = plot_physical_board(board_w, board_h, res["mapped_detections"], origin_pos)
             st.pyplot(board_fig, use_container_width=True)
             plt.close(board_fig)
@@ -565,10 +623,18 @@ if res is not None:
             st.info("No coordinates to plot.")
 
     # -------------------------------------------------------------------------
-    # TAB 3: Physical Fix (Robotic Arm Rework)
+    # TAB 3: Robotic Arm Rework (G-Code)
     # -------------------------------------------------------------------------
     with tab_rework:
-        st.markdown("#### 🤖 Automated Robotic Arm Rework System")
+        st.markdown(
+            f"""
+            <div style="display:flex; align-items:center; gap:8px; font-size:1.1rem; font-weight:700; margin-bottom:.5rem;">
+                {lucide('bot', 20, '#60a5fa')}
+                <span>Automated Robotic Arm Rework System</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         st.markdown("""
         Translates each localized defect into an automated CNC / Robotic arm operation:
         - **Shorts & Spurs**: Dispatches **Laser Ablation / Micro-Mill** to sever copper bridge.
@@ -578,17 +644,17 @@ if res is not None:
 
         if res["rework_plan"]:
             df_plan = pd.DataFrame(res["rework_plan"])
-            st.markdown("##### 🛠️ Robotic Dispatch Sequence")
+            st.markdown("##### Robotic Dispatch Sequence")
             st.dataframe(df_plan[["step", "defect_type", "severity", "tool_id", "tool_name", "action", "coord_x_mm", "coord_y_mm", "est_seconds"]], use_container_width=True, hide_index=True)
 
             gc1, gc2 = st.columns([3, 1])
             with gc1:
-                st.markdown("##### 📜 Generated ISO 6983 G-Code Program")
+                st.markdown("##### Generated ISO 6983 G-Code Program")
                 st.code(res["gcode"], language="gcode")
             with gc2:
-                st.markdown("##### 💾 Machine Export")
+                st.markdown("##### Machine Export")
                 st.download_button(
-                    "⬇️ Download .GCODE File",
+                    "Download G-Code File",
                     data=res["gcode"],
                     file_name=f"pcb_rework_job.gcode",
                     mime="text/plain",
@@ -596,7 +662,7 @@ if res is not None:
                     use_container_width=True
                 )
                 st.download_button(
-                    "⬇️ Download Sequence (CSV)",
+                    "Download Sequence (CSV)",
                     data=df_plan.to_csv(index=False),
                     file_name="rework_sequence.csv",
                     mime="text/csv",
@@ -606,10 +672,18 @@ if res is not None:
             st.success("No defects detected. Zero rework operations needed.")
 
     # -------------------------------------------------------------------------
-    # TAB 4: Software Fix (Schematics & CAD ECO)
+    # TAB 4: Schematics & CAD Directives (ECO)
     # -------------------------------------------------------------------------
     with tab_eco:
-        st.markdown("#### 📐 Schematic & EDA Layout Design Correction")
+        st.markdown(
+            f"""
+            <div style="display:flex; align-items:center; gap:8px; font-size:1.1rem; font-weight:700; margin-bottom:.5rem;">
+                {lucide('file-code', 20, '#60a5fa')}
+                <span>Schematic & EDA Layout Design Correction</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         st.markdown("""
         If defects recur from layout geometry flaws (e.g. traces placed too close), this engine generates 
         formal **Engineering Change Orders (ECO)** and **KiCad/Altium DRC rule directives** for the layout engineer.
@@ -618,12 +692,12 @@ if res is not None:
         if res["mapped_detections"]:
             ec1, ec2 = st.columns([3, 1])
             with ec1:
-                st.markdown("##### 📋 Engineering Change Order (ECO) Directives")
+                st.markdown("##### Engineering Change Order (ECO) Directives")
                 st.markdown(res["eco_markdown"])
             with ec2:
-                st.markdown("##### 💾 CAD Directives Export")
+                st.markdown("##### CAD Directives Export")
                 st.download_button(
-                    "⬇️ Download ECO (.md)",
+                    "Download ECO (.md)",
                     data=res["eco_markdown"],
                     file_name="PCB_Engineering_Change_Order.md",
                     mime="text/markdown",
@@ -631,7 +705,7 @@ if res is not None:
                     use_container_width=True
                 )
                 st.download_button(
-                    "⬇️ Download KiCad DRC JSON",
+                    "Download KiCad DRC JSON",
                     data=res["kicad_json"],
                     file_name="kicad_drc_violations.json",
                     mime="application/json",
@@ -641,13 +715,21 @@ if res is not None:
             st.success("Board design conforms to all standard EDA Design Rules.")
 
     # -------------------------------------------------------------------------
-    # TAB 5: CAD Template Comparison (Optional)
+    # TAB 5: CAD Reference Comparison
     # -------------------------------------------------------------------------
     with tab_golden:
-        st.markdown("#### ⚖️ CAD Master Template Difference Analysis")
+        st.markdown(
+            f"""
+            <div style="display:flex; align-items:center; gap:8px; font-size:1.1rem; font-weight:700; margin-bottom:.5rem;">
+                {lucide('scale', 20, '#60a5fa')}
+                <span>CAD Master Template Difference Analysis</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         comp = res.get("comparator_res")
         if comp is not None:
-            st.caption(f"Alignment: {'✅ ORB RANSAC Homography Successful' if comp['alignment_success'] else '⚠️ Scaled Fallback'} | Discrepancies: {comp['discrepancies_count']}")
+            st.caption(f"Alignment: {'ORB RANSAC Homography Successful' if comp['alignment_success'] else 'Scaled Fallback'} | Discrepancies: {comp['discrepancies_count']}")
             rc1, rc2 = st.columns(2)
             with rc1:
                 st.markdown("**1. Golden Reference Master**")
@@ -660,23 +742,31 @@ if res is not None:
                 st.markdown("**4. Thermal Anomaly Heatmap (JET)**")
                 st.image(comp["heatmap_rgb"], use_container_width=True)
         else:
-            st.info("ℹ️ No Golden Reference Master was uploaded. To use template comparison, upload a CAD master image in the expander above.")
+            st.info("No Golden Reference Master was uploaded. To use template comparison, upload a CAD master image in the expander above.")
 
     # -------------------------------------------------------------------------
     # TAB 6: Export Reports
     # -------------------------------------------------------------------------
     with tab_export:
-        st.markdown("#### 📄 Inspection Reports & Download Center")
+        st.markdown(
+            f"""
+            <div style="display:flex; align-items:center; gap:8px; font-size:1.1rem; font-weight:700; margin-bottom:.5rem;">
+                {lucide('download', 20, '#60a5fa')}
+                <span>Inspection Reports & Download Center</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         dc1, dc2, dc3 = st.columns(3)
         dc1.download_button(
-            "📥 Download Annotated Image",
+            "Download Annotated Image",
             data=res["detection_bytes"],
             file_name="pcb_annotated_detection.png",
             mime="image/png",
             use_container_width=True,
         )
         dc2.download_button(
-            "📄 Download CSV Defect Log",
+            "Download CSV Defect Log",
             data=res["table"].to_csv(index=False).encode("utf-8"),
             file_name="pcb_defects_log.csv",
             mime="text/csv",
@@ -684,7 +774,7 @@ if res is not None:
         )
         if res["pdf_bytes"] is not None:
             dc3.download_button(
-                "🧾 Download PDF Inspection Report",
+                "Download PDF Inspection Report",
                 data=res["pdf_bytes"],
                 file_name="pcb_quality_report.pdf",
                 mime="application/pdf",
