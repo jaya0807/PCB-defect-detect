@@ -1,4 +1,4 @@
-# 🔬 Edge-AI PCB Inspection & Automated Defect Localization
+# 🤖 TraceBot: Edge-AI PCB Inspection & Automated Defect Remediation
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python)](https://python.org)
 [![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-red?style=for-the-badge)](https://ultralytics.com)

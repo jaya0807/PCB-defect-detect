@@ -46,14 +46,14 @@ except ImportError:
     REPORTLAB_AVAILABLE = False
 
 
-APP_NAME = "PCBInspect AI"
+APP_NAME = "TraceBot"
 MODEL_NAME = "YOLOv8 Edge"
-DEVELOPER_NAME = "Edge-AI Inspection Team"
+DEVELOPER_NAME = "TraceBot Team"
 GITHUB_URL = "https://github.com/jaya0807/PCB-defect-detect"
 
 st.set_page_config(
-    page_title=f"{APP_NAME} | PCB Defect Inspection & Remediation",
-    page_icon="🔬",
+    page_title=f"{APP_NAME} | Edge-AI PCB Inspection & Automated Remediation",
+    page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -306,7 +306,7 @@ def build_pdf_report(result):
 st.markdown(
     f"""
     <div class="app-header">
-        <h1 class="header-title">🔬 {APP_NAME}</h1>
+        <h1 class="header-title">🤖 {APP_NAME}</h1>
         <div class="header-subtitle">
             Edge-AI Automated Visual Inspection: Upload a PCB to detect defects, locate them in physical millimeters, and get instant automated remediation.
         </div>
