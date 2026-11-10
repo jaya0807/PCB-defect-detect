@@ -49,7 +49,7 @@ except ImportError:
 APP_NAME = "TraceBot"
 MODEL_NAME = "YOLOv8 Edge"
 DEVELOPER_NAME = "TraceBot Engineering"
-GITHUB_URL = "https://github.com/jaya0807/PCB-defect-detect"
+GITHUB_URL = "https://github.com/jaya0807/Tracebot"
 
 
 # -----------------------------------------------------------------------------

@@ -93,8 +93,8 @@ pcb-defect-ai/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/jaya0807/PCB-defect-detect.git
-cd PCB-defect-detect
+git clone https://github.com/jaya0807/Tracebot.git
+cd Tracebot
 ```
 
 ### 2. Install Dependencies
